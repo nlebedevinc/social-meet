@@ -1,0 +1,35 @@
+{
+  "name": "social-meet-app",
+  "version": "1.0.0",
+  "description": "Application for managing social events",
+  "main": "index.js",
+  "git": {
+    "url": "git@github.com:nlebedevinc/awesome-profile-hapi.git"
+  },
+  "scripts": {
+    "start": "node build/src/index",
+    "build": "del-cli ./build && npm run lint && tsc",
+    "lint": "tslint --project tsconfig.json --config tslint.json src/**/*.ts",
+    "docker:build": "docker build -f docker/Dockerfile -t profile/${npm_package_name} .",
+    "docker:start": "docker run -d -it -p 80:8080 --name=kz profile/${npm_package_name}"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/hapi": "^17.0.19",
+    "@types/inert": "^5.1.1",
+    "@types/jest": "^23.3.3",
+    "@types/lowdb": "^1.0.5",
+    "@types/node": "^10.11.0",
+    "del-cli": "^1.1.0",
+    "jest": "^23.6.0",
+    "tslint": "^5.11.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.1.1"
+  },
+  "dependencies": {
+    "hapi": "^17.6.0",
+    "inert": "^5.1.0",
+    "lowdb": "^1.0.0"
+  }
+}
