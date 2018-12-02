@@ -1,7 +1,0 @@
-version: "3"
-services:
-  profile-skeleton-hapi:
-    image: profile/profile-skeleton-hapi:latest
-    ports:
-    - "3000:3000"
-    - "9229:9229"
