@@ -40,7 +40,7 @@ export default function (server: Hapi.Server, prefix: string) {
 
     server.route({
         method: 'POST',
-        path: '/user',
+        path: `${prefix}/user`,
         handler: controller.createUser,
         options: {
             auth: 'jwt',
@@ -69,7 +69,7 @@ export default function (server: Hapi.Server, prefix: string) {
 
     server.route({
         method: 'DELETE',
-        path: '/user/{id}',
+        path: `${prefix}/user/{id}`,
         handler: controller.deleteUser,
         options: {
             tags: ['api', 'user'],
@@ -82,7 +82,7 @@ export default function (server: Hapi.Server, prefix: string) {
 
     server.route({
         method: 'POST',
-        path: '/user/auth',
+        path: `${prefix}/user/auth`,
         handler: controller.loginUser,
         options: {
             auth: false,
@@ -93,7 +93,7 @@ export default function (server: Hapi.Server, prefix: string) {
 
     server.route({
         method: 'DELETE',
-        path: '/user/auth',
+        path: `${prefix}/user/auth`,
         handler: controller.logoutUser,
         options: {
             tags: ['api', 'auth'],
@@ -106,7 +106,7 @@ export default function (server: Hapi.Server, prefix: string) {
 
     server.route({
         method: 'PATCH',
-        path: '/user/auth',
+        path: `${prefix}/user/auth`,
         handler: controller.authUser,
         options: {
             tags: ['api', 'auth'],

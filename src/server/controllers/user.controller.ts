@@ -1,5 +1,5 @@
 import * as User from '../models/user';
-import { Request, ResponseObject, ResponseToolkit, Server } from 'hapi';
+import { ResponseObject, ResponseToolkit, Server } from 'hapi';
 import { badData, badImplementation, badRequest, unauthorized } from 'boom';
 import { AppState } from '../interfaces';
 
@@ -13,7 +13,7 @@ export default class UserController {
     async createUser(request: any, toolkit: ResponseToolkit): Promise<ResponseObject | Error> {
         try {
             const { low } = request.server.app.services;
-            let existedUser: User.Interface | null = await User.Model.findOne(low.getConnection(), COLLECTION_NAME, { login: request.payload.login })
+            let existedUser: User.Interface | null = await User.Model.findOne(low.getConnection(), COLLECTION_NAME, { login: request.payload.login });
             if (existedUser) {
                 return badData(`User with login "${request.payload.login}" already exists`);
             }
@@ -61,7 +61,7 @@ export default class UserController {
     // }
 
     async loginUser(request: any, toolkit: ResponseToolkit): Promise<ResponseObject | Error> {
-        let { login, password } = request.payload
+        let { login, password } = request.payload;
         const { low } = request.server.app.services;
         try {
             const user = await User.Model.findOne(low.getConnection(), COLLECTION_NAME, { login });
@@ -79,7 +79,7 @@ export default class UserController {
 
             return toolkit.response(user).header('X-Access-Token', user.token);
         } catch (error) {
-            return badImplementation(error.message, { error })
+            return badImplementation(error.message, { error });
         }
     }
 
@@ -97,7 +97,7 @@ export default class UserController {
 
             return toolkit.response(user);
         } catch (error) {
-            return badImplementation(error.message, { error })
+            return badImplementation(error.message, { error });
         }
     }
 

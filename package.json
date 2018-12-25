@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node src/server/index",
     "build": "webpack",
-    "build:server": "del-cli ./build && npm run lint:server && tsc",
+    "build:server": "del-cli ./build && npm run lint:server && tsc --build tsconfig.server.json",
     "lint:server": "tslint --project tsconfig.server.json --config tslint.json src/server/**/*.ts",
     "docker:build": "docker build -f docker/Dockerfile -t profile/${npm_package_name} .",
     "docker:start": "docker run -d -it -p 80:8080 --name=kz profile/${npm_package_name}"
