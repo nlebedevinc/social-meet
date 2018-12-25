@@ -3,6 +3,7 @@ import * as inert from 'inert';
 import * as appPackage from '../../package.json';
 import { healthcheckApi, userApi } from './api';
 import { AppState, AppServices } from './interfaces';
+import jwtAuth from './plugins/jwt';
 
 export async function init(services: AppServices): Promise<HapiServer> {
   try {
@@ -21,6 +22,10 @@ export async function init(services: AppServices): Promise<HapiServer> {
     appState.git = {
       url: (<any>appPackage).git.url,
     };
+
+    // setup custom hapi plugins
+    const jwt = jwtAuth();
+    await jwt.register(server);
 
     server.route({
       method: 'GET',

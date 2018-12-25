@@ -5,7 +5,7 @@ import { LowService } from '../../interfaces';
 
 function init() {
     // change and configure db path
-    const adapter = new FileSync(path.resolve(__dirname, '../../../../db/projects.json'));
+    const adapter = new FileSync(path.resolve(process.cwd(), './db/projects.json'));
     return Low(adapter);
 }
 

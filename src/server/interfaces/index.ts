@@ -23,6 +23,6 @@ export interface PluginInfo {
 }
 
 export interface Plugin {
-    register(server: Server, options: PluginOptions): Promise<any>;
+    register(server: Server): Promise<any>;
     info(): PluginInfo;
 }
