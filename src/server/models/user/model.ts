@@ -7,11 +7,11 @@ export default class User extends LowModel {
         super(db, collection);
     }
 
-    static async getUserFromRequest(request: AuthorizedRequest): Promise<Interface> {
+    static async getUserFromRequest(db: any, collection: string, request: any): Promise<Interface> {
         if (!request.auth || !request.auth.credentials || !request.auth.credentials.sub) {
           throw unauthorized(`User not authorised`);
         }
 
-        return User.findById(request.auth.credentials.sub);
+        return User.findById(db, collection, request.auth.credentials.sub);
     }
 }

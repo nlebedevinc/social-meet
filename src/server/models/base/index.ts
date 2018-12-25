@@ -7,9 +7,10 @@ export interface Entity {
 abstract class LowModel {
     protected _entity: Entity;
 
-    constructor(protected db: any, protected collection: string) {
+    constructor(protected db: any, protected collection: string, payload: any = {}) {
         this._entity = {
             id: uuid(),
+            ...payload,
         };
     }
 
@@ -38,7 +39,7 @@ abstract class LowModel {
             .find(query)
             .value();
 
-        return entity;
+        return new (<any>this.constructor.call(this, db, collection, entity));
     }
 
     static async findById(db: any, collection: string, id: string) {

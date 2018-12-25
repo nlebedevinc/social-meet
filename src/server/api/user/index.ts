@@ -1,139 +1,119 @@
 import * as Hapi from 'hapi';
 import UserController from '../../controllers/user.controller';
+import { Role } from '../../plugins/roles/interface';
 
 export default function (server: Hapi.Server, prefix: string) {
     const controller = new UserController(server);
     server.bind(controller);
 
-    server.route({
-        method: 'GET',
-        path: '/user/{id}',
-        handler: controller.getModel,
-        options: {
-            cors: config.get('server:cors'),
-            auth: 'jwt',
-            tags: ['api', 'user'],
-            description: 'Get detailed information about specified user',
-            validate: Validator.get,
-            plugins: {
-                'hapi-swagger': Documentation.get,
-                'roles': [Role.ADMIN]
-            }
-        }
-    })
+    // server.route({
+    //     method: 'GET',
+    //     path: '/user/{id}',
+    //     handler: controller.getModel,
+    //     options: {
+    //         cors: config.get('server:cors'),
+    //         auth: 'jwt',
+    //         tags: ['api', 'user'],
+    //         description: 'Get detailed information about specified user',
+    //         validate: Validator.get,
+    //         plugins: {
+    //             'hapi-swagger': Documentation.get,
+    //             'roles': [Role.ADMIN]
+    //         }
+    //     }
+    // })
 
-    server.route({
-        method: 'POST',
-        path: '/users',
-        handler: controller.getList,
-        options: {
-            cors: config.get('server:cors'),
-            auth: 'jwt',
-            tags: ['api', 'user'],
-            description: 'Get detailed information about all users',
-            validate: BasicValidator.list,
-            plugins: {
-                'hapi-swagger': Documentation.list,
-                'roles': [Role.ADMIN]
-            }
-        }
-    })
+    // server.route({
+    //     method: 'POST',
+    //     path: '/users',
+    //     handler: controller.getList,
+    //     options: {
+    //         cors: config.get('server:cors'),
+    //         auth: 'jwt',
+    //         tags: ['api', 'user'],
+    //         description: 'Get detailed information about all users',
+    //         plugins: {
+    //             'roles': [Role.ADMIN]
+    //         }
+    //     }
+    // })
 
     server.route({
         method: 'POST',
         path: '/user',
-        handler: UserController.createUser,
+        handler: controller.createUser,
         options: {
-            cors: config.get('server:cors'),
             auth: 'jwt',
             tags: ['api', 'user'],
             description: 'Create new user record',
-            validate: Validator.create,
             plugins: {
-                'hapi-swagger': Documentation.create,
                 'roles': [Role.ADMIN]
             }
         }
-    })
+    });
 
-    server.route({
-        method: 'PATCH',
-        path: '/user/{id}',
-        handler: UserController.updateUser,
-        options: {
-            cors: config.get('server:cors'),
-            auth: 'jwt',
-            tags: ['api', 'user'],
-            description: 'Update user record',
-            validate: Validator.update,
-            plugins: {
-                'hapi-swagger': Documentation.update,
-                'roles': [Role.ADMIN]
-            }
-        }
-    })
+    // server.route({
+    //     method: 'PATCH',
+    //     path: '/user/{id}',
+    //     handler: controller.updateUser,
+    //     options: {
+    //         cors: config.get('server:cors'),
+    //         auth: 'jwt',
+    //         tags: ['api', 'user'],
+    //         description: 'Update user record',
+    //         plugins: {
+    //             'roles': [Role.ADMIN]
+    //         }
+    //     }
+    // })
 
     server.route({
         method: 'DELETE',
         path: '/user/{id}',
-        handler: UserController.deleteUser,
+        handler: controller.deleteUser,
         options: {
-            cors: config.get('server:cors'),
             tags: ['api', 'user'],
             description: 'Mark user inavtive',
-            validate: Validator.delete,
             plugins: {
-                'hapi-swagger': Documentation.delete,
                 'roles': [Role.ADMIN]
             }
         }
-    })
+    });
 
     server.route({
         method: 'POST',
         path: '/user/auth',
-        handler: UserController.loginUser,
+        handler: controller.loginUser,
         options: {
-            cors: config.get('server:cors'),
             auth: false,
             tags: ['api', 'auth'],
             description: 'Validate user login and password',
-            validate: Validator.login,
-            plugins: {
-                'hapi-swagger': Documentation.login
-            }
         }
-    })
+    });
 
     server.route({
         method: 'DELETE',
         path: '/user/auth',
-        handler: UserController.logoutUser,
+        handler: controller.logoutUser,
         options: {
-            cors: config.get('server:cors'),
             tags: ['api', 'auth'],
             description: 'Remove authorisation token from user object',
-            validate: Validator.logout,
             plugins: {
-                'hapi-swagger': Documentation.logout,
                 'roles': [Role.USER, Role.ADMIN]
             }
         }
-    })
+    });
 
     server.route({
         method: 'PATCH',
         path: '/user/auth',
-        handler: UserController.authUser,
+        handler: controller.authUser,
         options: {
-            cors: config.get('server:cors'),
             tags: ['api', 'auth'],
             description: 'Update user authorisation status',
-            validate: Validator.auth,
             plugins: {
-                'hapi-swagger': Documentation.auth,
                 'roles': [Role.USER, Role.ADMIN]
             }
         }
-    })
+    });
 }

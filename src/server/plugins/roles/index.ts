@@ -57,9 +57,10 @@ const Plugin: any = {
             }
 
             // receive information about authenticated user
-            let user: User.Interface | null;
+            let user;
             try {
-                user = await User.Model.getUserFromRequest(request);
+                const { low } = (<any>request.server.app).services;
+                user = await User.Model.getUserFromRequest(low.getConnection(), 'Users', request);
             } catch (error) {
                 return internal(error);
             }
