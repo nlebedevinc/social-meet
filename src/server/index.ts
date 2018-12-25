@@ -11,7 +11,6 @@ process.on('uncaughtException', (error: Error) => {
 /**
  * Catch unhandling rejected promises
  */
-
 process.on("unhandledRejection", (reason: any) => {
     console.error(`unhandledRejection ${reason}`);
 });

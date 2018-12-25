@@ -1,32 +1,59 @@
-const path = require('path')
-const webpack = require('webpack')
+const webpack = require('webpack');
+const HWP = require('html-webpack-plugin');
+const path = require('path');
+const sourcemapTool = process.env.WEBPACK_MODE === 'development'
+  ? 'eval'
+  : '';
 
 module.exports = {
-  mode: process.env.NODE_ENV || 'development',
-  devtool: 'inline-source-map',
-  entry: [
-    'webpack-hot-middleware/client',
-    './src/client/index.js'
-  ],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
+  entry: './src/client/index.js',
   module: {
     rules: [
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        include: __dirname,
-        options: {
-          presets: [ 'react-hmre' ]
-        }
+        use: ['babel-loader']
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
+      {
+        test: /\.(png|jpg|gif|svg|jpeg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[hash].[ext]',
+              outputPath: 'static/'
+            }
+          }
+        ]
       }
     ]
-  }
-}
+  },
+  resolve: {
+    modules: [
+      'src',
+      'node_modules',
+    ],
+    extensions: ['*', '.js', '.jsx']
+  },
+  output: {
+    path: __dirname + '/public',
+    publicPath: '/',
+    filename: 'static/[hash].js'
+  },
+  devtool: sourcemapTool,
+  devServer: {
+    contentBase: './public',
+    hot: true,
+    historyApiFallback: true,
+  },
+  plugins: [
+    new HWP({
+      template: path.join(__dirname, '/src/client/index.html')
+    }),
+    new webpack.HotModuleReplacementPlugin()
+  ]
+};

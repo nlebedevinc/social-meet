@@ -30,6 +30,9 @@ export async function init(services: AppServices): Promise<HapiServer> {
     server.route({
       method: 'GET',
       path: '/{param*}',
+      options: {
+          auth: false,
+      },
       handler: {
         directory: {
           path: 'public'

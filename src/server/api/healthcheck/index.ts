@@ -11,6 +11,7 @@ export default function (server: Hapi.Server, prefix: string) {
         path: `${prefix}/ping`,
         handler: controller.ping,
         options: {
+            auth: false,
             tags: ['api', 'healthcheck', 'ping'],
             description: 'Check server instance with version response',
             // plugins: {
@@ -24,6 +25,7 @@ export default function (server: Hapi.Server, prefix: string) {
         path: `${prefix}/info`,
         handler: controller.info,
         options: {
+            auth: false,
             tags: ['api', 'healthcheck', 'info'],
             description: 'Check server instance with version response',
             // plugins: {
