@@ -1,0 +1,17 @@
+import LowModel from '../base';
+import Interface from './interface';
+import { unauthorized } from 'boom';
+
+export default class User extends LowModel {
+    constructor(protected db: any, protected collection: string = 'Users') {
+        super(db, collection);
+    }
+
+    static async getUserFromRequest(request: AuthorizedRequest): Promise<Interface> {
+        if (!request.auth || !request.auth.credentials || !request.auth.credentials.sub) {
+          throw unauthorized(`User not authorised`);
+        }
+
+        return User.findById(request.auth.credentials.sub);
+    }
+}

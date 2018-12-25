@@ -12,14 +12,8 @@ function init() {
 export default function createLowService(): LowService {
     const connection = init();
     return {
-        getProjects: (): any[] => {
-            return connection.get('projects')
-                .value();
-        },
-        getProject: (id: string): any => {
-            return connection.get('details')
-                .find({ id: id })
-                .value();
+        getConnection: (): any => {
+            return connection;
         }
     };
 }
