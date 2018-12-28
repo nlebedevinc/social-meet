@@ -5,7 +5,7 @@ import { LowService } from '../../interfaces';
 
 function init() {
     // change and configure db path
-    const adapter = new FileSync(path.resolve(process.cwd(), './db/projects.json'));
+    const adapter = new FileSync(path.resolve(process.cwd(), './db/data.json'));
     return Low(adapter);
 }
 
@@ -14,6 +14,25 @@ export default function createLowService(): LowService {
     return {
         getConnection: (): any => {
             return connection;
+        },
+        getEvents: async (): Promise<any> => {
+            const allEvents = await connection
+                .get('Events')
+                .value();
+
+            return allEvents;
+        },
+        storeEvent: async (event: any): Promise<any> => {
+            await connection
+                .get('Events')
+                .push(event)
+                .write();
+
+            const storedEvents = await connection
+                .get('Events')
+                .value();
+
+            return storedEvents;
         }
     };
 }

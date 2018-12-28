@@ -9,3 +9,6 @@ render(
   <App />,
   document.getElementById('root')
 );
+
+// hot module replacement plugin
+module.hot.accept();

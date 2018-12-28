@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
 import { Route, Link, BrowserRouter } from 'react-router-dom';
 import Page from '../containers/Page';
+import './App.css';
+
+const Header = () => (
+    <nav className="header">
+        <ul>
+            <li>
+                <Link to="/" >Главная</Link>
+            </li>
+            <li>
+                <Link to="/about" >О приложении</Link>
+            </li>
+        </ul>
+    </nav>
+);
 
 const Shell = () => (
     <div className="wrapper">
         <div className="main-panel">
             <div className="content">
-                <div className="container-fluid">
-                    <Page />
-                </div>
+                <Page />
             </div>
         </div>
     </div>
@@ -19,7 +31,7 @@ const About = () => (
         <div className="main-panel">
             <div className="content">
                 <div className="container-fluid">
-                    This is about page
+                    Страница пока в разработке
                 </div>
             </div>
         </div>
@@ -30,21 +42,11 @@ class App extends Component {
     constructor() {
         super();
     }
-
+ 
     render() {
         return (
             <BrowserRouter>
                 <div>
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link to="/" >Main</Link>
-                            </li>
-                            <li>
-                                <Link to="/about" >About</Link>
-                            </li>
-                        </ul>
-                    </nav>
                     <Route path="/" exact component={Shell}/>
                     <Route path="/about" component={About} />
                 </div>

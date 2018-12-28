@@ -37,7 +37,7 @@ module.exports = {
       'src',
       'node_modules',
     ],
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx', '.css']
   },
   output: {
     path: __dirname + '/public',

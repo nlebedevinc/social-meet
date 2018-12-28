@@ -9,6 +9,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start:server": "node ./build/src/server/index",
+    "start:dev": "webpack-dev-server -d --config ./webpack.config.js --port 3000 --mode development",
     "build": "del-cli ./public && webpack",
     "build:server": "del-cli ./build && npm run lint:server && tsc --build tsconfig.server.json",
     "lint:server": "tslint --project tsconfig.server.json --config tslint.json src/server/**/*.ts",
@@ -18,6 +19,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
     "express": "^4.16.3",
@@ -25,13 +27,17 @@
     "hapi-auth-jwt2": "^8.2.0",
     "inert": "^5.1.2",
     "lowdb": "^1.0.0",
+    "mapbox-gl": "^0.52.0",
+    "moment": "^2.23.0",
     "prop-types": "^15.6.1",
     "qs": "^6.5.1",
     "react": "^16.7.0",
     "react-dom": "^16.3.1",
+    "react-mapbox-gl": "^4.0.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "serve-static": "^1.13.2",
+    "style-loader": "^0.23.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

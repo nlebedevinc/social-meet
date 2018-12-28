@@ -1,7 +1,7 @@
 import { Server as HapiServer } from 'hapi';
 import * as inert from 'inert';
 import * as appPackage from '../../package.json';
-import { healthcheckApi, userApi } from './api';
+import { healthcheckApi, userApi, eventsApi } from './api';
 import { AppState, AppServices } from './interfaces';
 import jwtAuth from './plugins/jwt';
 
@@ -42,6 +42,7 @@ export async function init(services: AppServices): Promise<HapiServer> {
 
     healthcheckApi(server, '/v1/healthcheck');
     userApi(server, '/v1/user');
+    eventsApi(server, '/v1/events');
     return server;
   } catch (err) {
     throw err;
