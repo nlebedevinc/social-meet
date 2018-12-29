@@ -7,7 +7,7 @@
     "url": "git@github.com:nlebedevinc/awesome-profile-hapi.git"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run build && npm run build:server && npm run start:server",
     "start:server": "node ./build/src/server/index",
     "start:dev": "webpack-dev-server -d --config ./webpack.config.js --port 3000 --mode development",
     "build": "del-cli ./public && webpack",
