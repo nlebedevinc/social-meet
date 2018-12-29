@@ -74,12 +74,9 @@ class MapboxWrapper extends Component {
 
     handleMapClick(element, param) {
         const { lat, lng } = param.lngLat;
-        const event = {
-            name: 'event',
-            coordinates: [lng, lat],
-        }
+        const coordinates = [lng, lat];
 
-        this.props.save(event);
+        this.props.save(coordinates);
     }
 
     render() {

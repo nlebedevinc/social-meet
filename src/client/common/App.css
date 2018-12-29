@@ -21,6 +21,10 @@
     height: 100vh;
 }
 
+.modal-content {
+    padding: 20px;
+}
+
 img {
     width: 30%;
     height: 30%;
